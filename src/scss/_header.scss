@@ -1,0 +1,13 @@
+ul.navbar-nav {
+   margin-right: 80px;
+   gap: 20px;
+ }
+ 
+ .languages button {
+   margin-right: 10px;
+ }
+ a.navbar-brand {
+   img {
+      @include adaptiveValue("width", 120, 80);
+   }
+ }

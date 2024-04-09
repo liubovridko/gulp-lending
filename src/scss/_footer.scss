@@ -1,0 +1,51 @@
+.footer {
+   padding: toRem(16) toRem(16);
+   &__container{
+      align-items: center;
+     // text-align: center;
+      @media (max-width: $mobile){
+         gap: toRem(20);
+      }
+   }
+ &__logo {
+   img {
+      @include adaptiveValue("width", 200, 150);
+   }
+ }
+ &__nav {
+      .list-nav {
+         &__item {
+         margin-bottom: toRem(10);
+         align-items: flex-start;
+         &:last-child {
+            margin-bottom: 0;
+         }
+         a {
+            text-decoration: none;
+            color:rgba(0, 0, 0, .5);
+            &:hover {
+               color:rgba(0, 0, 0, 1);
+            }
+         }
+      }
+   }
+ }
+ &__adress {
+   @media (max-width: $mobile) {
+      text-align: center;
+   }
+   .footer-contact > p {
+      margin: 0 auto;
+      @media (max-width: $mobile){
+         text-align: left;
+      }
+   }
+ }
+
+ .adress {
+   &__img {
+     
+   }
+ }
+
+ }

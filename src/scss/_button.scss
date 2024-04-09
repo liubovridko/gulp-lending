@@ -1,0 +1,63 @@
+@import "variables";
+
+.button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  border-radius: toRem(50);
+  font-weight: 300;
+  line-height: 156.25%;//25/16
+  padding: toRem(10) toRem(40);
+  background-color: white;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    background: url("../img/bg-button.png") center no-repeat;
+    background-size: cover;
+  }
+
+  &--fw {
+    width: 100%;
+  }
+  &--border {
+    transition: all 0.3s;
+    background: transparent;
+    border: toRem(1) solid $bgGold;
+       span {
+        color: $bgGold;
+         &:hover {
+          color: $mainColor;
+         }
+       }
+    
+    &::before{
+      opacity: 0;;
+    }
+    @media (any-hover: hover) {
+      &:hover {
+        border: toRem(1) solid transparent;
+      }
+    }
+  }
+  
+  span {
+    position: relative;
+
+  }
+  @media (any-hover: hover) {
+    &:hover {
+      color:$mainColor;
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}

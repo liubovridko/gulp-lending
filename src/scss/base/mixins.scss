@@ -1,0 +1,144 @@
+@import "../variables";
+//font include
+@mixin font($font_name, $file_name, $weight, $style){
+   @font-face {
+      font-family: $font_name;
+      font-display: swap;
+      src: 
+         url("../fonts/#{$file_name}.woff2") format("woff2"),
+         url("../fonts/#{$file_name}.woff") format("woff");
+         font-weight: #{$weight};
+         font-style: #{$style};
+   }
+}
+//Percent
+@function percent($px, $from: 100){
+   $result:math.div($px, $from)*100%;
+   @return $result;
+}
+//REM
+@function toRem($px, $current: 16) {
+   $result:math.div($px, $current)+rem;
+   @return $result;
+}
+
+//EM
+@function em($px, $current: 16) {
+   $result:math.div($px, $current)+em;
+   @return $result;
+}
+
+//Grids
+@mixin gridCards($type: fit, $min:280px, $max: 1fr, $gap: 30px) {
+   display: grid;
+   gap: $gap;
+   grid-template-columns: repeat(auto-#{$type},minmax($min,$max));
+}
+
+//adaptive
+@mixin adaptiveValue($property, $startSize, $minSize, $keepSize: 0, $widthFrom:$containerWidth, $widthTo: $minWidth) {
+   @if ($startSize==0) {
+      $startSize: 0.000001;
+   } 
+   @if ($minSize==0) {
+      $minSize: 0.000001;
+   }
+
+   //for calc();
+   $addSize: math.div($startSize - $minSize, 16);
+
+   @if ($widthFrom == $containerWidth and $maxWidthContainer==0) {
+      $widthFrom: $maxWidth;
+   }
+   //breakpoints in em
+   $widthFromMedia: em($widthFrom);
+   $widthToMedia: em($widthTo);
+   //https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+   $slope : math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+   $yIntersection : -$widthTo * $slope + $minSize;
+   @if ($yIntersection==0){
+      $yIntersection: 0.000001;
+   }
+   //$flyValue: #{toRem($yIntersection)}"+" #{$slope *100}vw;
+   $flyValue: calc(#{toRem($yIntersection)} + #{$slope * 100}vw);
+
+   // Mixin for different properties
+  @if $property == 'font-size' {
+   font-size: $flyValue;
+ } @else if $property == 'margin' {
+   margin: $flyValue;
+ } @else if $property == 'margin-right' {
+   margin-right: $flyValue;
+ } @else if $property == 'margin-left' {
+   margin-left: $flyValue;
+ } @else if $property == 'margin-bottom' {
+   margin-bottom: $flyValue;
+ } @else if $property == 'padding' {
+   padding: $flyValue;
+ } @else if $property == 'padding-left' {
+   padding-left: $flyValue;
+ } @else if $property == 'padding-top' {
+    padding-top: $flyValue;
+ } @else if $property == 'padding-bottom' {
+   padding-bottom: $flyValue;
+ } @else if $property == 'width' {
+   width: $flyValue;
+ } @else if $property == 'min-height' {
+   min-height: $flyValue;
+ } @else if $property == 'height' {
+    height: $flyValue;
+ } @else if $property == 'left' {
+    left: $flyValue;
+ } @else if $property == 'column-gap' {
+    column-gap: $flyValue;
+ } @else if $property == 'flex-basis' {
+    flex-basis: $flyValue;
+ } @else if $property == 'gap' {
+      gap: $flyValue;
+ } @else {
+   // Handle other properties as needed
+   // ...
+ }
+
+ // Optionally, keep original size for certain screen widths
+ @if $keepSize != 0 {
+   @media (min-width: $widthFromMedia) and (max-width: $widthToMedia) {
+     @if $property == 'font-size' {
+       font-size: $keepSize;
+     } @else if $property == 'margin' {
+       margin: $keepSize;
+    } @else if $property == 'margin-right' {
+         margin-right: $keepSize;
+    } @else if $property == 'margin-left' {
+         margin-left: $keepSize;
+     } @else if $property == 'margin-bottom' {
+         margin-bottom: $keepSize;
+     } @else if $property == 'padding' {
+       padding: $keepSize;
+     } @else if $property == 'padding-top' {
+        padding-top: $keepSize;
+     } @else if $property == 'padding-left' {
+      padding-left: $keepSize;
+     } @else if $property == 'padding-bottom' {
+      padding-bottom: $keepSize;
+     } @else if $property == 'width' {
+       width: $keepSize;
+     } @else if $property == 'min-height' {
+       min-height: $keepSize;
+     } @else if $property == 'height' {
+        height: $keepSize;
+     } @else if $property == 'column-gap' {
+       column-gap: $keepSize;
+     } @else if $property == 'left' {
+        left: $keepSize;
+     } @else if $property == 'flex-basis' {
+        flex-basis: $keepSize;
+     } @else if $property == 'gap' {
+         gap: $keepSize;
+     } @else {
+       // Handle other properties as needed
+       // ...
+     }
+   }
+ }
+}

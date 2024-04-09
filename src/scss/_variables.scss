@@ -1,0 +1,45 @@
+//colors
+$black: #232323;
+$background: #EFE9DD;
+$gray-line: #f6f6f6;
+$orange: #fe5f1e;
+$mainColor:#222220;
+$goldColor: #9D875C;
+$bgGold: #C1AB81;
+$bgDark:#222220;
+$goldColorHover: #dbd6cc;
+
+$container-width: 90%;
+
+$duration: 0.15s;
+$fontFamily: 'Montserrat';
+$fontSize: 16px;
+
+//settings adaptive grid===================================
+
+//min width page
+$minWidth:320;
+
+//width maket
+$maxWidth:1920;
+//width of bounding container (0=no limit)
+$maxWidthContainer:1400;
+//the total padding of the container
+//30= about 15px left and right, 0 = no padding
+$containerPadding:30;
+
+//the trigger width of the first breakpoint
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+//breakpoints
+$pc: em($containerWidth);//laptop, computer,some tablets in horizontal position
+$tablet: em(991.98);//tablets, some telephons in horizontal position
+$mobile: em(767.98);//telephone L
+$mobileSmall: em(479.98);//telephone S
+
+//type adaptive
+//1 = responsiveness (containers have no breakpoints)
+//2 = by breakpoint (the container changes its width by breakpoint)
+$respotsiveType:1;
+
+

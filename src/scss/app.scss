@@ -1,0 +1,106 @@
+@use 'sass:math';
+
+@import "base/mixins";
+
+
+
+//@import "fonts";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import "fonts/fonts";
+@import "fonts/icons";
+
+@import "variables";
+@import "header";
+@import "home";
+@import "footer";
+
+// @import 'libs/select'; // кастомний селект
+
+
+//bounding container
+/*стилі будуть застосовуватися до всіх класів,
+що містить *__container
+Наприклад header__container, main__container і тп*/
+@if ($respotsiveType==1){
+   //responsiveness
+   [class*="__container"] {
+      @if ($maxWidthContainer>0) {
+         max-width: toRem($containerWidth);
+         margin: 0 auto;
+      }
+      @if ($containerPadding>0) {
+         @if ($maxWidthContainer>0) {
+            padding: 0 toRem(math.div($containerPadding, 2));
+         } @else {
+            @include adaptiveValue("padding-left", math.div($containerPadding,2),15);
+            @include adaptiveValue("padding-right", math.div($containerPadding,2),15);
+         }
+      }
+   }
+} @else {
+   //by breakpoints
+   [class*="__container"] {
+      margin: 0 auto;
+      @if ($maxWidthContainer>0) {
+         max-width: toRem($containerWidth);
+      } @else {
+         @if ($containerPadding>0) {
+            padding: 0 toRem(math.div($containerPadding, 2));
+         }
+      }
+      @media (max-width: $pc) {
+         max-width: toRem(970);
+      }
+      @media (max-width: $tablet) {
+         max-width: toRem(750);
+      }
+      @media (max-width: $mobile) {
+         max-width: none;
+         @if ($containerPadding>0 and $maxWidthContainer>0) {
+            padding: 0 toRem(math.div($containerPadding, 2));
+         }
+      }
+   }
+}
+
+//@import "common";
+//@import "button";
+//@import "base/forms/input.scss";
+//@import "libs/normalize";
+
+body {
+	background-color: $background;
+	font-family: $fontFamily;
+	font-size: $fontSize;
+   //скролл заблоковано
+   .lock &{
+      overflow: hidden;
+      touch-action: none;
+      overscroll-behavior: none;
+   }
+   //Сайт завантажено
+   .loaded &{
+   }
+}
+
+html,
+body,
+.wrapper {
+	min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+   overflow: auto;
+   // @supports (overflow: clip){
+   //    overflow: clip;
+   // }
+   // //притискаємо footer
+   > main {
+      flex: 1 1 auto;
+   }
+}
+.page {
+	// box-sizing: border-box;
+	// min-height: 100%;
+}
+
